@@ -2,6 +2,10 @@ function load_image(){
     //players,gems,virus
     virus_img=new Image();
     virus_img.src="Assets/v1.png";
+    player_img=new Image;
+    player_img.src="Assets/superhero.png";
+    gem_img=new Image;
+    gem_img.src="Assets/gemm.png";
 }
 function init(){
     // define all objects that we will have in the game
@@ -33,12 +37,26 @@ function init(){
         h:60,
         speed:40,
     };
+    player={
+        x:20,
+        y:H/2,
+        w:60,
+        h:60,
+        speed:20,
+    };
+    gem={
+        x:W-100,
+        y:H/2,
+        w:60,
+        h:60,
+    };
     enemy=[v1,v2,v3];
 }
 function draw(){
     //clear the canvas area for old frame
     pen.clearRect(0,0,W,H);
-    pen.fillStyle="red";
+    pen.drawImage(player_img,player.x,player.y,player.w,player.h);
+    pen.drawImage(gem_img,gem.x,gem.y,gem.w,gem.h);
     for(var i=0;i<enemy.length;i++){
         pen.drawImage(virus_img,enemy[i].x,enemy[i].y,enemy[i].w,enemy[i].h);
     }
