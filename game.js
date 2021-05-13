@@ -43,6 +43,7 @@ function init(){
         w:60,
         h:60,
         speed:20,
+        moving:false,
     };
     gem={
         x:W-100,
@@ -51,6 +52,12 @@ function init(){
         h:60,
     };
     enemy=[v1,v2,v3];
+    canvas.addEventListener('mousedown',function(){
+        player.moving=true;
+    });
+    canvas.addEventListener('mouseup',function(){
+        player.moving=false;
+    });
 }
 function draw(){
     //clear the canvas area for old frame
@@ -63,6 +70,10 @@ function draw(){
     
 }
 function update(){
+    //Player Movement
+    if(player.moving==true){
+        player.x+=player.speed;
+    }
     //move the virus
     for(var i=0;i<enemy.length;i++){
         enemy[i].y+=enemy[i].speed;
