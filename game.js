@@ -59,6 +59,12 @@ function init(){
         player.moving=false;
     });
 }
+//Collision Detection Function
+function isOverlap(rect1,rect2){
+    if(rect1.x+rect1.w>=rect2.x && rect1.y+rect1.h>=rect2.y&&rect2.x+rect2.w>=rect1.x && rect2.y+rect2.h>=rect1.y){
+        return true;
+    }
+}
 function draw(){
     //clear the canvas area for old frame
     pen.clearRect(0,0,W,H);
@@ -70,6 +76,10 @@ function draw(){
     
 }
 function update(){
+    //check Overlap between player and gem
+    if(isOverlap(player,gem)){
+        alert("Game Over.YOU WON");
+    }
     //Player Movement
     if(player.moving==true){
         player.x+=player.speed;
