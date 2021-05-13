@@ -21,21 +21,21 @@ function init(){
         y:50,
         w:60,
         h:60,
-        speed:15,
+        speed:10,
     };
     v2={
         x:300,
         y:150,
         w:60,
         h:60,
-        speed:30,
+        speed:20,
     };
     v3={
         x:450,
         y:20,
         w:60,
         h:60,
-        speed:40,
+        speed:30,
     };
     player={
         x:20,
@@ -44,6 +44,7 @@ function init(){
         h:60,
         speed:20,
         moving:false,
+        health:200,
     };
     gem={
         x:W-100,
@@ -58,6 +59,7 @@ function init(){
     canvas.addEventListener('mouseup',function(){
         player.moving=false;
     });
+    game_over=false;
 }
 //Collision Detection Function
 function isOverlap(rect1,rect2){
@@ -76,13 +78,31 @@ function draw(){
     
 }
 function update(){
+    pen.fillStyle='white';
+    pen.fillText("Score "+player.health,10,20,40);
     //check Overlap between player and gem
     if(isOverlap(player,gem)){
-        alert("Game Over.YOU WON");
+        alert("Game Over.YOU WON!!\nYour Score is "+player.health);
+        clearInterval(f);
     }
+    //Collision check player and virus
+    for(var i=0;i<enemy.length;i++)
+        {
+            if(isOverlap(player,enemy[i]))
+                {
+                    player.health-=50;
+                }
+        }
+     //low health
+      if(player.health<=0)
+        {
+            alert("Game Over.Your Score is "+player.health);
+            game_over=true;
+        }
     //Player Movement
     if(player.moving==true){
         player.x+=player.speed;
+        player.health+=20;
     }
     //move the virus
     for(var i=0;i<enemy.length;i++){
@@ -95,6 +115,9 @@ function update(){
     
 }
 function gameloop(){
+    if(game_over==true){
+        clearInterval(f);
+    }
     draw();
     update();
     
